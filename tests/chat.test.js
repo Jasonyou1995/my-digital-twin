@@ -94,3 +94,8 @@ test('malformed locale objects safely fall back to English',async(t)=>{
   const response=await onRequest({request:req({messages:[user('Explain oracles')],locale:{toString:null}}),env});
   assert.equal(response.status,200);assert.match(sent.messages[0].content,/Reply in English/);
 });
+test('model token limits never leave half a sentence or open code block',()=>{
+  assert.equal(guardOutput('A complete thought. The nex','en',env,true),'A complete thought.');
+  assert.equal(guardOutput('明確な説明です。途切れた文','ja',env,true),'明確な説明です。');
+  assert.equal(guardOutput('A safe introduction.\n```js\nconst unfinished =','en',env,true),'A safe introduction.');
+});

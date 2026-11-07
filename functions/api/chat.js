@@ -41,7 +41,7 @@ SECURITY AND PRIVACY
 - You have no external tools, no access to private files, accounts, live financial data or secrets, and cannot execute code or transactions.
 
 STYLE
-Reply in ${LANGUAGES[locale]}. Follow an explicit visitor request for another supported language. Default to 2–5 useful sentences; expand to short paragraphs or bullets for technical follow-ups. Do not overuse disclaimers. Use third person for Jason's factual biography, and first person only as the AI guide.
+Reply in ${LANGUAGES[locale]}. Follow an explicit visitor request for another supported language. Default to 2–5 useful sentences, about 80–150 words. Expand only when the visitor asks for detail. Use plain text paragraphs or simple bullets, without Markdown emphasis markers. Write naturally in the selected language, preserving technical names but avoiding mixed-language filler. Do not overuse disclaimers. Use third person for Jason's factual biography, and first person only as the AI guide.
 
 CURATED REFERENCE CONTEXT
 ${context}`;
@@ -80,16 +80,17 @@ export async function onRequest({request, env}) {
   try {
     upstream = await fetch(OPENROUTER_URL, {
       method:'POST', headers:{Authorization:`Bearer ${env.OPENROUTER_API_KEY}`, 'Content-Type':'application/json', 'HTTP-Referer':env.SITE_URL || new URL(request.url).origin, 'X-Title':'Shengwei You - Digital Twin'},
-      body:JSON.stringify({model:env.OPENROUTER_MODEL || 'anthropic/claude-haiku-5.5', messages:[{role:'system', content:systemPrompt(locale, knowledge.context)}, ...messages], max_tokens:1000, temperature:0.3}),
+      body:JSON.stringify({model:env.OPENROUTER_MODEL || 'anthropic/claude-haiku-5.5', messages:[{role:'system', content:systemPrompt(locale, knowledge.context)}, ...messages], max_tokens:2000, temperature:0.3}),
       signal:AbortSignal.timeout(25_000),
     });
   } catch { return error('timeout', 'The twin took too long to answer. Please try again.', 504); }
   if (!upstream.ok) return error('busy', 'The twin is busy right now. Please try again shortly.', upstream.status === 429 ? 429 : 502);
-  let text;
-  try { const out = await upstream.json(); text = out?.choices?.[0]?.message?.content; }
+  let text, truncated = false;
+  try { const out = await upstream.json(); const choice = out?.choices?.[0]; text = choice?.message?.content; truncated = ['length', 'max_tokens'].includes(choice?.finish_reason); }
   catch { return error('unreadable', 'The twin returned an unreadable answer.', 502); }
   if (typeof text !== 'string' || !text.trim()) return error('unreadable', 'The twin returned an unreadable answer.', 502);
-  const reply = guardOutput(text, locale, env);
+  const reply = guardOutput(text, locale, env, truncated);
+  if (!reply) return error('unreadable', 'The answer was cut short. Please ask a more focused question.', 502);
   const conversationToken = await sealConversation([...messages, {role:'assistant', content:reply}].slice(-MAX_HISTORY), env);
   // Source cards are only emitted when the model explicitly cites a known reference.
   const citedIds = new Set([...reply.matchAll(/\[(profile|paper-\d+|talk-\d+)\]/g)].map(m=>m[1]));
@@ -107,9 +108,19 @@ export function sanitizeCurrent(input) {
   return {role:'user', content};
 }
 
-export function guardOutput(text, locale, env={}) {
+export function guardOutput(text, locale, env={}, truncated=false) {
   if (text.includes(CANARY) || [env.OPENROUTER_API_KEY, env.CHAT_SESSION_SECRET].some(secret=>secret && text.includes(secret))) return REFUSALS[locale] || REFUSALS.en;
-  return text.trim().slice(0, MAX_REPLY_CHARS);
+  let result = text.trim();
+  if (truncated || result.length > MAX_REPLY_CHARS) {
+    result = result.slice(0, MAX_REPLY_CHARS);
+    // Avoid exposing half a sentence or an incomplete illustrative code block.
+    if ((result.match(/```/g) || []).length % 2) result = result.slice(0, result.lastIndexOf('```'));
+    const sentences = [...result.matchAll(/[。！？]|[.!?؟](?:["'”’)]|\[[a-z0-9-]+\])*(?=\s|$)/gu)];
+    if (sentences.length) { const last = sentences.at(-1); result = result.slice(0, last.index + last[0].length); }
+    else if (result.lastIndexOf('\n\n') > 0) result = result.slice(0, result.lastIndexOf('\n\n'));
+    else return ''; // Let the caller show a retryable error rather than inventing a refusal.
+  }
+  return result.trim();
 }
 
 export function isSameOrigin(origin, url) {
