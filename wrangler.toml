@@ -24,3 +24,9 @@ SITE_URL = ""
 
 [observability]
 enabled = true
+
+# Abuse protection at the Worker edge (20 requests/minute/IP per Cloudflare location).
+[[ratelimits]]
+name = "CHAT_RATE_LIMITER"
+namespace_id = "1001"
+simple = { limit = 20, period = 60 }

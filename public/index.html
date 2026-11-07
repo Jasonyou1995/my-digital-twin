@@ -1,220 +1,201 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" dir="ltr" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Shengwei (Jason) You · AI agents, blockchain trust, stablecoin risk</title>
   <meta name="description" content="Shengwei (Jason) You: Computer Science PhD candidate at Notre Dame working on AI solutions engineering, AI-agent safety for finance, blockchain trust and stablecoin risk. Chat with his digital twin." />
-  <meta name="theme-color" content="#0b0e11" />
+  <meta name="theme-color" content="#f8f7f2" />
   <meta property="og:title" content="Shengwei (Jason) You · Digital Twin" />
   <meta property="og:description" content="AI agents that touch money, blockchain trust, stablecoin risk. Ask my digital twin." />
   <meta property="og:type" content="website" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" />
   <link rel="stylesheet" href="/styles.css" />
   <script src="/app.js" defer></script>
 </head>
 <body class="min-h-[100dvh] bg-ink font-sans text-fg antialiased selection:bg-neon/30 selection:text-fg">
-  <div class="grid-bg pointer-events-none fixed inset-0 -z-10" aria-hidden="true"></div>
 
-  <a href="#chat-input" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-panel focus:px-3 focus:py-2">Skip to chat</a>
 
-  <!-- Top bar -->
+  <a href="#chat-input" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-panel focus:px-3 focus:py-2"><span data-i18n="page.001">Skip to chat</span></a>
+
+
   <header class="sticky top-0 z-40 border-b border-line/80 bg-ink/80 backdrop-blur">
-    <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6" aria-label="Primary">
-      <a href="#top" class="font-mono text-sm tracking-tight text-fg">
-        <span class="text-neon">sy</span><span class="text-mute">//</span>twin
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6" data-i18n-aria-label="nav.label" aria-label="Primary">
+      <a href="#top" class="brand" aria-label="Jason You">
+        <span class="monogram" aria-hidden="true">JY</span><span class="brand-name">Jason You</span>
       </a>
       <ul class="hidden items-center gap-6 font-mono text-xs uppercase tracking-widest text-mute md:flex">
-        <li><a class="nav-link" href="#work">Work</a></li>
-        <li><a class="nav-link" href="#research">Research</a></li>
-        <li><a class="nav-link" href="#talks">Talks</a></li>
+        <li><a class="nav-link" href="#work"><span data-i18n="page.002">Work</span></a></li>
+        <li><a class="nav-link" href="#research"><span data-i18n="page.003">Research</span></a></li>
+        <li><a class="nav-link" href="#talks"><span data-i18n="page.004">Talks</span></a></li>
       </ul>
-      <span class="flex items-center gap-2 rounded-full border border-line px-3 py-1 font-mono text-[11px] text-mute">
-        <span class="status-dot" aria-hidden="true"></span> twin online
-      </span>
-    </nav>
+      <div class="language-control"><label for="language-select" data-i18n="language.label">Language</label><select id="language-select" data-i18n-aria-label="language.label" aria-label="Language"><option value="en" lang="en">English</option><option value="zh-Hant" lang="zh-Hant">繁體中文</option><option value="zh-Hans" lang="zh-Hans">简体中文</option><option value="es" lang="es">Español</option><option value="pt-BR" lang="pt-BR">Português (BR)</option><option value="fr" lang="fr">Français</option><option value="ru" lang="ru">Русский</option><option value="ja" lang="ja">日本語</option><option value="ar" lang="ar">العربية</option></select></div>
+    </nav><p id="language-error" class="language-error" role="status"></p>
   </header>
 
   <main id="top">
-    <!-- Hero: asymmetric split. Intro left, twin chat right. -->
-    <section class="mx-auto grid max-w-7xl gap-10 px-4 pb-20 pt-12 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:pt-20">
+
+    <section class="mx-auto grid max-w-7xl gap-10 px-4 pb-20 pt-12 sm:px-6 hero-grid lg:grid-cols-12 lg:gap-12 lg:pt-20">
       <div class="lg:col-span-7">
         <p class="font-mono text-xs uppercase tracking-[0.25em] text-neon">
-          Shengwei (Jason) You<span class="caret" aria-hidden="true"></span>
+          Shengwei (Jason) You
         </p>
 
-        <h1 class="mt-6 max-w-[18ch] text-4xl font-semibold leading-[1.05] tracking-tighter md:text-6xl">
-          Making AI agents safe enough to touch money.
-        </h1>
+        <h1 class="mt-6 max-w-[18ch] hero-title"><span data-i18n="page.006">Making AI agents safe enough to touch money.</span></h1>
 
-        <p class="mt-6 max-w-[62ch] text-base leading-relaxed text-mute md:text-lg">
-          I'm a Computer Science PhD candidate at the University of Notre Dame, finishing in February 2027.
-          My research covers blockchain trust, stablecoin risk, and the guardrails an AI agent needs before it signs a transaction.
-          I'm based in Hong Kong and work on AI solutions engineering: private enterprise AI, reproducible evaluation, and automation a human approves.
-        </p>
+        <p class="mt-6 max-w-[62ch] text-base leading-relaxed text-mute md:text-lg"><span data-i18n="page.007">I&#x27;m a Computer Science PhD candidate at the University of Notre Dame, finishing in February 2027. My research covers blockchain trust, stablecoin risk, and the guardrails an AI agent needs before it signs a transaction. I&#x27;m based in Hong Kong and work on AI solutions engineering: private enterprise AI, reproducible evaluation, and automation a human approves.</span></p>
 
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href="#chat-input" data-focus-chat class="btn-primary">Ask my digital twin</a>
-          <a href="#research" class="btn-ghost">See the research</a>
+          <a href="#chat-input" data-focus-chat class="btn-primary"><span data-i18n="page.008">Ask my digital twin</span></a>
+          <a href="#research" class="btn-ghost"><span data-i18n="page.009">See the research</span></a>
         </div>
 
         <dl class="mt-12 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-6 border-t border-line pt-6 sm:grid-cols-3">
           <div>
-            <dt class="font-mono text-[11px] uppercase tracking-widest text-mute">Papers out</dt>
-            <dd class="mt-1 text-2xl font-semibold tracking-tight"><span id="stat-papers">7</span><span class="text-mute text-base font-normal"> published / accepted</span></dd>
+            <dt class="font-mono text-[11px] uppercase tracking-widest text-mute"><span data-i18n="page.010">Papers out</span></dt>
+            <dd class="mt-1 text-2xl font-semibold tracking-tight"><span id="stat-papers">7</span> <span class="text-mute text-base font-normal"><span data-i18n="page.011">published / accepted</span></span></dd>
           </div>
           <div>
-            <dt class="font-mono text-[11px] uppercase tracking-widest text-mute">Latest venue</dt>
-            <dd class="mt-1 text-2xl font-semibold tracking-tight">IEEE ICBC <span class="text-mute text-base font-normal">2026</span></dd>
+            <dt class="font-mono text-[11px] uppercase tracking-widest text-mute"><span data-i18n="page.012">Latest venue</span></dt>
+            <dd class="mt-1 text-2xl font-semibold tracking-tight"><span data-i18n="page.013">IEEE ICBC</span> <span class="text-mute text-base font-normal">2026</span></dd>
           </div>
           <div class="col-span-2 sm:col-span-1">
-            <dt class="font-mono text-[11px] uppercase tracking-widest text-mute">Shipped at</dt>
-            <dd class="mt-1 text-base leading-snug">Hyperledger · GroAI · HKBU lecturer</dd>
+            <dt class="font-mono text-[11px] uppercase tracking-widest text-mute"><span data-i18n="page.014">Shipped at</span></dt>
+            <dd class="mt-1 text-base leading-snug"><span data-i18n="page.015">Hyperledger · GroAI · HKBU lecturer</span></dd>
           </div>
         </dl>
       </div>
 
-      <!-- Chat -->
+
       <aside class="lg:col-span-5" aria-labelledby="chat-title">
         <div class="chat-shell lg:sticky lg:top-20">
           <div class="flex items-center justify-between border-b border-line px-4 py-3">
-            <h2 id="chat-title" class="font-mono text-xs uppercase tracking-widest text-fg">
-              digital_twin<span class="text-neon">.</span>chat
-            </h2>
-            <button id="chat-reset" type="button" class="font-mono text-[11px] uppercase tracking-widest text-mute transition hover:text-neon">clear</button>
+            <h2 id="chat-title" class="font-mono text-xs uppercase tracking-widest text-fg"><span data-i18n="chat.title">A conversation with my twin</span></h2>
+            <button id="chat-reset" type="button" class="font-mono text-[11px] uppercase tracking-widest text-mute transition hover:text-neon"><span data-i18n="page.019">clear</span></button>
           </div>
 
           <div id="chat-log" class="chat-log h-[340px] sm:h-[420px] space-y-4 overflow-y-auto px-4 py-5" role="log" aria-live="polite" aria-relevant="additions">
-            <!-- Empty state, removed after the first message -->
+
             <div id="chat-empty">
-              <p class="text-sm leading-relaxed text-mute">
-                Hi, I'm Jason's AI twin. I answer from a fixed profile of his work, research and background.
-                I stay on that topic and I can be wrong, so check anything important with him.
-              </p>
-              <p class="mt-5 font-mono text-[11px] uppercase tracking-widest text-mute">Try asking</p>
+              <p class="text-sm leading-relaxed text-mute"><span data-i18n="page.020">Hi, I’m Jason’s AI twin. Ask me about his work and research, or explore the ideas behind them. I can explain technical concepts and follow-up questions, with sources where available.</span></p>
+              <p class="mt-5 font-mono text-[11px] uppercase tracking-widest text-mute"><span data-i18n="page.021">Try asking</span></p>
               <div class="mt-2 flex flex-wrap gap-2">
-                <button type="button" class="chip" data-prompt="What is your PhD research about, in plain words?">PhD research, plainly</button>
-                <button type="button" class="chip" data-prompt="What did you present at IEEE ICBC 2026?">ICBC 2026 talk</button>
-                <button type="button" class="chip" data-prompt="What kind of AI solutions roles are you looking for?">Roles you want</button>
-                <button type="button" class="chip" data-prompt="What did you build at GroAI and Hyperledger?">GroAI and Hyperledger</button>
+                <button type="button" class="chip" data-prompt-key="prompt.1"><span data-i18n="page.022">PhD research, plainly</span></button>
+                <button type="button" class="chip" data-prompt-key="prompt.2"><span data-i18n="page.023">ICBC 2026 talk</span></button>
+                <button type="button" class="chip" data-prompt-key="prompt.3"><span data-i18n="page.024">Roles you want</span></button>
+                <button type="button" class="chip" data-prompt-key="prompt.4"><span data-i18n="page.025">GroAI and Hyperledger</span></button>
               </div>
             </div>
           </div>
 
           <form id="chat-form" class="border-t border-line p-3" novalidate>
-            <label for="chat-input" class="sr-only">Message the digital twin</label>
+            <label for="chat-input" class="sr-only"><span data-i18n="page.026">Message the digital twin</span></label>
             <div class="flex items-end gap-2">
-              <textarea id="chat-input" name="message" rows="1" maxlength="1000" required
+              <textarea data-i18n-placeholder="chat.placeholder" id="chat-input" name="message" rows="1" maxlength="1000" required
                 class="chat-input max-h-40 min-h-[44px] flex-1 resize-none rounded-md border border-line bg-ink px-3 py-2.5 text-sm text-fg placeholder:text-mute/70"
                 placeholder="Ask about my work or research"></textarea>
-              <button id="chat-send" type="submit" class="btn-primary h-[44px] shrink-0 px-4" aria-label="Send message">
-                Send
-              </button>
+              <button id="chat-send" type="submit" class="btn-primary h-[44px] shrink-0 px-4" data-i18n-aria-label="chat.sendLabel" aria-label="Send message"><span data-i18n="page.027">Send</span></button>
             </div>
             <div class="mt-2 flex items-start justify-between gap-4 font-mono text-[10px] uppercase tracking-widest text-mute">
               <span id="chat-error" class="min-w-0 text-warn" role="alert"></span>
               <span class="shrink-0"><span id="chat-count">0</span>/1000</span>
             </div>
-          </form>
+          <p class="chat-privacy" data-i18n="chat.privacy">AI-generated answers. Chat stays in this page’s memory; messages are sent to the AI service to respond.</p></form>
         </div>
       </aside>
     </section>
 
-    <!-- Work -->
+
     <section id="work" class="border-t border-line">
       <div class="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-12">
         <div class="lg:col-span-4">
-          <p class="section-kicker">01 / Work</p>
-          <h2 class="mt-3 text-3xl font-semibold tracking-tight">From ledgers to agents.</h2>
-          <p class="mt-4 max-w-[40ch] text-mute leading-relaxed">
-            I started with blockchain infrastructure, moved into trust and risk research, and now build and evaluate AI agents for financial workflows.
-          </p>
+          <p class="section-kicker"><span data-i18n="page.028">01 / Work</span></p>
+          <h2 class="mt-3 text-3xl font-semibold tracking-tight"><span data-i18n="page.029">From ledgers to agents.</span></h2>
+          <p class="mt-4 max-w-[40ch] text-mute leading-relaxed"><span data-i18n="page.030">I started with blockchain infrastructure, moved into trust and risk research, and now build and evaluate AI agents for financial workflows.</span></p>
         </div>
         <ol class="divide-y divide-line border-y border-line lg:col-span-8">
           <li class="timeline-row">
             <span class="timeline-date">2026</span>
             <div>
-              <h3 class="font-medium">Enterprise AI discovery and solution scoping</h3>
-              <p class="timeline-org">Independent project with a university research lab and business school</p>
-              <p class="timeline-body">Scoping a private enterprise-data assistant for financial analysis and quoting: ERP data access, API write-back, and local deployment constraints.</p>
+              <h3 class="font-medium"><span data-i18n="page.031">Enterprise AI discovery and solution scoping</span></h3>
+              <p class="timeline-org"><span data-i18n="page.032">Independent project with a university research lab and business school</span></p>
+              <p class="timeline-body"><span data-i18n="page.033">Scoping a private enterprise-data assistant for financial analysis and quoting: ERP data access, API write-back, and local deployment constraints.</span></p>
             </div>
           </li>
           <li class="timeline-row">
-            <span class="timeline-date">Summer 2026</span>
+            <span class="timeline-date"><span data-i18n="page.034">Summer 2026</span></span>
             <div>
-              <h3 class="font-medium">Agentic Engineering Intern</h3>
-              <p class="timeline-org">GroAI</p>
-              <p class="timeline-body">Built ledger telemetry and pricing features for a sales AI agent with multi-agent orchestration, and wired search across several MCP servers.</p>
+              <h3 class="font-medium"><span data-i18n="page.035">Agentic Engineering Intern</span></h3>
+              <p class="timeline-org"><span data-i18n="page.036">GroAI</span></p>
+              <p class="timeline-body"><span data-i18n="page.037">Built ledger telemetry and pricing features for a sales AI agent with multi-agent orchestration, and wired search across several MCP servers.</span></p>
             </div>
           </li>
           <li class="timeline-row">
-            <span class="timeline-date">2020 - now</span>
+            <span class="timeline-date"><span data-i18n="page.038">2020 - now</span></span>
             <div>
-              <h3 class="font-medium">Doctoral Research</h3>
-              <p class="timeline-org">University of Notre Dame</p>
-              <p class="timeline-body">Trust-weighted stablecoin reserve controls and oracle reputation protocols. Oracle-manipulation studies on historical stress episodes and Foundry mainnet forks, with the limits written down.</p>
+              <h3 class="font-medium"><span data-i18n="page.039">Doctoral Research</span></h3>
+              <p class="timeline-org"><span data-i18n="page.040">University of Notre Dame</span></p>
+              <p class="timeline-body"><span data-i18n="page.041">Trust-weighted stablecoin reserve controls and oracle reputation protocols. Oracle-manipulation studies on historical stress episodes and Foundry mainnet forks, with the limits written down.</span></p>
             </div>
           </li>
           <li class="timeline-row">
-            <span class="timeline-date">Lecturer</span>
+            <span class="timeline-date"><span data-i18n="page.042">Lecturer</span></span>
             <div>
-              <h3 class="font-medium">Graduate-level Lecturer</h3>
-              <p class="timeline-org">Hong Kong Baptist University</p>
-              <p class="timeline-body">Taught machine learning, deep learning and NLP to master's students.</p>
+              <h3 class="font-medium"><span data-i18n="page.043">Graduate-level Lecturer</span></h3>
+              <p class="timeline-org"><span data-i18n="page.044">Hong Kong Baptist University</span></p>
+              <p class="timeline-body"><span data-i18n="page.045">Taught machine learning, deep learning and NLP to master&#x27;s students.</span></p>
             </div>
           </li>
           <li class="timeline-row">
-            <span class="timeline-date">Summer 2019</span>
+            <span class="timeline-date"><span data-i18n="page.046">Summer 2019</span></span>
             <div>
-              <h3 class="font-medium">Software Engineering Intern</h3>
-              <p class="timeline-org">The Linux Foundation / Hyperledger</p>
-              <p class="timeline-body">Built Caliper-GUI to configure and visualise blockchain benchmarks; benchmarked Hyperledger Fabric on AWS; presented at Hyperledger Global Forum 2020.</p>
+              <h3 class="font-medium"><span data-i18n="page.047">Software Engineering Intern</span></h3>
+              <p class="timeline-org"><span data-i18n="page.048">The Linux Foundation / Hyperledger</span></p>
+              <p class="timeline-body"><span data-i18n="page.049">Built Caliper-GUI to configure and visualise blockchain benchmarks; benchmarked Hyperledger Fabric on AWS; presented at Hyperledger Global Forum 2020.</span></p>
             </div>
           </li>
           <li class="timeline-row">
-            <span class="timeline-date">2018 - 2020</span>
+            <span class="timeline-date"><span data-i18n="page.050">2018 - 2020</span></span>
             <div>
-              <h3 class="font-medium">Graduate Student Researcher</h3>
-              <p class="timeline-org">Purdue University</p>
-              <p class="timeline-body">Adversarial-ML simulations, a Go/ECDSA wallet, and a Hyperledger Fabric supply-chain prototype.</p>
+              <h3 class="font-medium"><span data-i18n="page.051">Graduate Student Researcher</span></h3>
+              <p class="timeline-org"><span data-i18n="page.052">Purdue University</span></p>
+              <p class="timeline-body"><span data-i18n="page.053">Adversarial-ML simulations, a Go/ECDSA wallet, and a Hyperledger Fabric supply-chain prototype.</span></p>
             </div>
           </li>
         </ol>
 
         <div class="grid gap-8 border-t border-line pt-10 sm:grid-cols-3 lg:col-span-8 lg:col-start-5">
           <div>
-            <p class="section-kicker">Education</p>
+            <p class="section-kicker"><span data-i18n="page.054">Education</span></p>
             <ul class="mt-3 space-y-2 text-sm leading-relaxed">
-              <li>PhD, Computer Science<br /><span class="text-mute">Notre Dame · exp. Feb 2027</span></li>
-              <li>MS, CS (Information Security)<br /><span class="text-mute">Purdue · 2019</span></li>
-              <li>BA, Mathematics<br /><span class="text-mute">University of Washington · 2018</span></li>
+              <li><span data-i18n="page.055">PhD, Computer Science</span><br /><span class="text-mute"><span data-i18n="page.056">Notre Dame · exp. Feb 2027</span></span></li>
+              <li><span data-i18n="page.057">MS, CS (Information Security)</span><br /><span class="text-mute"><span data-i18n="page.058">Purdue · 2019</span></span></li>
+              <li><span data-i18n="page.059">BA, Mathematics</span><br /><span class="text-mute"><span data-i18n="page.060">University of Washington · 2018</span></span></li>
             </ul>
           </div>
           <div>
-            <p class="section-kicker">Stack</p>
-            <p class="mt-3 text-sm leading-relaxed">Python, Go, JavaScript, Solidity. AWS, Docker. LangChain, n8n. Multi-agent orchestration. ML/DL/NLP.</p>
+            <p class="section-kicker"><span data-i18n="page.061">Stack</span></p>
+            <p class="mt-3 text-sm leading-relaxed"><span data-i18n="page.062">Python, Go, JavaScript, Solidity. AWS, Docker. LangChain, n8n. Multi-agent orchestration. ML/DL/NLP.</span></p>
           </div>
           <div>
-            <p class="section-kicker">Languages</p>
-            <p class="mt-3 text-sm leading-relaxed">Mandarin (native)<br />English (professional)<br />Cantonese (learning)</p>
+            <p class="section-kicker"><span data-i18n="page.063">Languages</span></p>
+            <p class="mt-3 text-sm leading-relaxed"><span data-i18n="page.064">Mandarin (native)</span><br /><span data-i18n="page.065">English (professional)</span><br /><span data-i18n="page.066">Cantonese (learning)</span></p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Research: rendered from /data/publications.json -->
+
     <section id="research" class="border-t border-line">
       <div class="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-12">
         <div class="lg:col-span-4">
-          <p class="section-kicker">02 / Research</p>
-          <h2 class="mt-3 text-3xl font-semibold tracking-tight">Publications</h2>
-          <p class="mt-4 max-w-[40ch] text-mute leading-relaxed">
-            Trust in blockchain systems, stablecoin stability, and how far an LLM agent can be trusted with on-chain value.
-          </p>
-          <div id="pub-filters" class="mt-6 flex flex-wrap gap-2" role="group" aria-label="Filter publications"></div>
+          <p class="section-kicker"><span data-i18n="page.067">02 / Research</span></p>
+          <h2 class="mt-3 text-3xl font-semibold tracking-tight"><span data-i18n="page.068">Publications</span></h2>
+          <p class="mt-4 max-w-[40ch] text-mute leading-relaxed"><span data-i18n="page.069">Trust in blockchain systems, stablecoin stability, and how far an LLM agent can be trusted with on-chain value.</span></p>
+          <div id="pub-filters" class="mt-6 flex flex-wrap gap-2" role="group" data-i18n-aria-label="research.filterLabel" aria-label="Filter publications"></div>
         </div>
         <div class="lg:col-span-8">
           <ol id="pub-list" class="divide-y divide-line border-y border-line" aria-busy="true">
@@ -222,17 +203,17 @@
             <li class="py-5"><div class="skeleton h-4 w-2/3"></div><div class="skeleton mt-3 h-3 w-1/3"></div></li>
             <li class="py-5"><div class="skeleton h-4 w-4/5"></div><div class="skeleton mt-3 h-3 w-2/5"></div></li>
           </ol>
-          <p id="pub-error" class="mt-4 hidden text-sm text-warn">Couldn't load the publication list. Refresh to try again.</p>
+          <p id="pub-error" class="mt-4 hidden text-sm text-warn"><span data-i18n="page.070">Couldn&#x27;t load the publication list. Refresh to try again.</span></p>
         </div>
       </div>
     </section>
 
-    <!-- Talks -->
+
     <section id="talks" class="border-t border-line">
       <div class="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-12">
         <div class="lg:col-span-4">
-          <p class="section-kicker">03 / Talks</p>
-          <h2 class="mt-3 text-3xl font-semibold tracking-tight">On stage</h2>
+          <p class="section-kicker"><span data-i18n="page.071">03 / Talks</span></p>
+          <h2 class="mt-3 text-3xl font-semibold tracking-tight"><span data-i18n="page.072">On stage</span></h2>
         </div>
         <ul id="talk-list" class="divide-y divide-line border-y border-line lg:col-span-8"></ul>
       </div>
@@ -241,7 +222,7 @@
 
   <footer class="border-t border-line">
     <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-10 font-mono text-xs text-mute sm:flex-row sm:items-center sm:justify-between sm:px-6">
-      <p>© <span id="year">2026</span> Shengwei (Jason) You. The twin is an AI and can make mistakes.</p>
+      <p><span data-i18n="page.073">©</span> <span id="year">2026</span> <span data-i18n="page.074">Shengwei (Jason) You. The twin is an AI and can make mistakes.</span></p>
       <ul class="flex gap-5">
         <li><a class="nav-link" href="https://github.com/Jasonyou1995" rel="noopener noreferrer" target="_blank">GitHub</a></li>
         <li><a class="nav-link" href="https://www.youtube.com/@jasonyou781" rel="noopener noreferrer" target="_blank">YouTube</a></li>

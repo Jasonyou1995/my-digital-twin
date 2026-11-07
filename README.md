@@ -1,49 +1,64 @@
-# my-digital-twin
+# Shengwei (Jason) You · Digital Twin
 
-Personal intro site for Shengwei (Jason) You with an AI "digital twin" chat. Static HTML + Tailwind on Cloudflare Workers (static assets); one API route proxies chat to OpenRouter so the API key never reaches the browser.
+A calm, multilingual professional profile and research guide. Static HTML and Tailwind CSS on Cloudflare Workers, with a server-side OpenRouter chat endpoint.
 
-```
-public/                     <- the ONLY folder Cloudflare serves (static assets)
-  index.html                hero, work, research, talks, chat UI
-  app.js                    chat client + publication renderer (textContent only)
-  styles.css                built from src/input.css (commit it; no build on Pages)
-  data/publications.json    single source of truth for papers + talks
-  _headers                  CSP and security headers
-functions/api/chat.js       POST /api/chat -> OpenRouter, hardcoded system prompt (Pages-Function compatible)
-src/worker.js               Worker entry: /api/chat -> chat.js, everything else -> static assets
-wrangler.toml               Workers config + non-secret vars (model id)
-src/input.css               Tailwind v4 source
-```
+## Structure
 
-## Run locally
+- `public/index.html`, `app.js`, `styles.css`: accessible responsive frontend, publication filters, and conversation UI.
+- `public/locales/*.json`: complete UI and publication-title translations in English, Traditional Chinese, Simplified Chinese, Spanish, Brazilian Portuguese, French, Russian, Japanese, and Arabic. Original bibliographic titles remain visible alongside translations.
+- `public/data/publications.json`: public publication and talk metadata, shared by the page and chat.
+- `functions/api/profile.js`: curated public professional facts.
+- `functions/api/knowledge.js`: small, auditable lexical retrieval index plus complete bibliographic catalogue, including multilingual topic aliases.
+- `functions/api/chat.js`: safe domain Q&A, signed conversation history, input limits, and OpenRouter proxy.
+- `src/worker.js`, `wrangler.toml`: Worker routing, assets, and edge rate limit.
+- `tests/`: Node-native security, conversation, retrieval, and translation checks.
 
-```bash
-npm install
-cp .dev.vars.example .dev.vars   # put your OpenRouter key here; file is gitignored
-npm run dev                      # http://localhost:8788
-```
+## Local development and checks
 
-## Deploy (Cloudflare Workers Builds, connected to GitHub)
+Requires Node 22 or newer.
 
-Every push to `main` deploys with `npx wrangler deploy`. The Worker name in the dashboard must match `name` in `wrangler.toml`.
-
-One-time: add the key as a **Secret** in Dashboard > Workers & Pages > my-digital-twin > Settings > Variables and Secrets, or:
-
-```bash
-npx wrangler secret put OPENROUTER_API_KEY
+```sh
+npm ci
+cp .dev.vars.example .dev.vars
+# Set OPENROUTER_API_KEY in .dev.vars. Never commit it.
+npm run dev
+npm run check
+npx wrangler deploy --dry-run
 ```
 
-Manual deploy from your machine: `npm run deploy`.
+`npm run check` runs tests, JavaScript syntax checks, and the CSS build. Commit built `public/styles.css`: the connected Cloudflare build currently deploys using `npx wrangler deploy`, so committed assets must be current.
 
-## Update publications
+## Deployment
 
-Edit `public/data/publications.json`. Status is one of `published`, `accepted`, `in_review`, `awaiting_review`. Add `"show": false` to hide an entry from the page and the twin. The JSON file itself is public, so delete an entry entirely if it must stay private. The chat function imports the same file, so the twin's knowledge updates on the next deploy.
+The existing Cloudflare Workers Builds connection deploys pushes to `main`. Worker name: `my-digital-twin`. Manual deployment: `npm run deploy` with an authorized Cloudflare login.
 
-## Security model
+The existing `OPENROUTER_API_KEY` secret remains server-side. No new API credentials, database, vector index, or paid service is required. The configured model is preserved in `wrangler.toml`; change `OPENROUTER_MODEL` there or in Cloudflare if desired.
 
-- Key lives only in Cloudflare env (`env.OPENROUTER_API_KEY`).
-- System prompt is hardcoded in `functions/api/chat.js`; client `system` turns are dropped.
-- Input: 16 KB body cap, 1,000 chars per message, last 6 user turns only (client-sent assistant turns are dropped), Origin required and same-origin.
-- Output guard (best-effort): replies with code fences, code-like lines, JSON, or the prompt canary are replaced with a refusal.
-- No phone, email or resume file in the repo. Contact details are deliberately absent from the prompt.
-- Required before launch: a Cloudflare WAF rate-limiting rule on `/api/chat` (about 20 requests/min per IP) and a credit limit on the OpenRouter key. The Origin check stops other websites, not scripts.
+An optional `CHAT_SESSION_SECRET` can be set as a Cloudflare secret. Without it, a domain-separated signing key is derived from the existing OpenRouter secret. Rotating either signing secret invalidates current conversations. Never put secrets in source, frontend assets, or logs.
+
+After a push, check the exact remote commit and Cloudflare build, then confirm deployed assets and `/api/chat`. API replies include `X-Twin-Version: 2026-11-07-multilingual` to distinguish this release from the previous handler. A successful Git push alone is not proof of deployment.
+
+## Chat behavior and evidence
+
+The twin answers safe follow-up questions about Jason's work and related technical concepts, including explanations, comparisons, analogies, and small illustrative code examples. It distinguishes general educational explanations from verified facts about Jason. It has no execution tools, wallet access, external browsing, or private documents.
+
+The retrieval corpus includes only curated public facts and bibliographic metadata. It is deliberately lightweight, not a full-text paper RAG system. The model must not invent paper findings, unpublished methods, quantitative results, or biography. Under-review work is restricted to its public title, topic, and exact status. Source cards are drawn from allowlisted records cited by the answer.
+
+For richer paper-specific answers, add reviewed public abstracts or excerpts with provenance to `knowledge.js`; do not ingest private manuscripts or arbitrary visitor URLs. Every source should state what it actually supports.
+
+## Security and privacy
+
+- Same-origin POST requests only, with exact scheme/host/port matching.
+- Streaming request body limit of 64 KB, 1,000-character user messages, bounded output and history, and a 25-second upstream timeout.
+- Only the newest client user turn is accepted. Earlier client `system`, `assistant`, and other turns are ignored. Prior conversation context comes from a verified, expiring HMAC token issued by the server.
+- Tokens are signed, **not encrypted**, and contain conversation text. The client keeps them in page memory only; clearing or reloading discards them. Tokens expire after 30 minutes and preserve at most four recent question/answer pairs, fewer for large Unicode conversations. Do not share them.
+- Only selected language is stored in localStorage. Messages are sent through Cloudflare to OpenRouter and its configured model provider to generate answers; their retention policies apply. The site does not log conversation contents.
+- All dynamic output uses `textContent`, never model-supplied HTML. CSP, safe source links, and existing security headers remain enabled.
+- The model prompt enforces scope, privacy, and injection resistance. An output guard blocks the prompt marker or configured secret literals without banning harmless technical code. Prompt defenses are best-effort, not a guarantee; never add secrets or private facts to the corpus.
+- A Cloudflare native rate limiter allows 20 requests/minute/IP per Cloudflare location. This is not a global billing cap or bot authentication. Keep an OpenRouter credit limit and consider a WAF rule for stronger abuse control. Origin checks stop other websites, not scripts.
+
+## Updating content and translations
+
+Edit `public/data/publications.json` for papers/talks and `profile.js` for biographical facts. `show: false` hides a paper from the page and retrieval, but the JSON file is public: remove private information entirely. Publication statuses are `published`, `accepted`, `in_review`, and `awaiting_review` and must not be conflated.
+
+For UI text, update English and all eight translated dictionaries together. Tests require exact key parity, nonempty strings, and distinct publication-status labels. Arabic sets `dir="rtl"`; citation titles retain their original English text and direction. Run mobile and desktop checks after translation/layout changes, especially with long Russian/French strings and CJK/Arabic scripts.
