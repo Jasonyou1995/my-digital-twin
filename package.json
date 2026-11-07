@@ -4,8 +4,8 @@
   "scripts": {
     "build:css": "tailwindcss -i ./src/input.css -o ./public/styles.css --minify",
     "watch:css": "tailwindcss -i ./src/input.css -o ./public/styles.css --watch",
-    "dev": "npm run build:css && wrangler pages dev",
-    "deploy": "npm run build:css && wrangler pages deploy"
+    "dev": "npm run build:css && wrangler dev --port 8788",
+    "deploy": "npm run build:css && wrangler deploy"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.0",

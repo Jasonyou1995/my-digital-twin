@@ -1,16 +1,17 @@
 # my-digital-twin
 
-Personal intro site for Shengwei (Jason) You with an AI "digital twin" chat. Static HTML + Tailwind on Cloudflare Pages; one Pages Function proxies chat to OpenRouter so the API key never reaches the browser.
+Personal intro site for Shengwei (Jason) You with an AI "digital twin" chat. Static HTML + Tailwind on Cloudflare Workers (static assets); one API route proxies chat to OpenRouter so the API key never reaches the browser.
 
 ```
-public/                     <- the ONLY folder Cloudflare serves
+public/                     <- the ONLY folder Cloudflare serves (static assets)
   index.html                hero, work, research, talks, chat UI
   app.js                    chat client + publication renderer (textContent only)
   styles.css                built from src/input.css (commit it; no build on Pages)
   data/publications.json    single source of truth for papers + talks
   _headers                  CSP and security headers
-functions/api/chat.js       POST /api/chat -> OpenRouter, hardcoded system prompt
-wrangler.toml               Pages config + non-secret vars (model id)
+functions/api/chat.js       POST /api/chat -> OpenRouter, hardcoded system prompt (Pages-Function compatible)
+src/worker.js               Worker entry: /api/chat -> chat.js, everything else -> static assets
+wrangler.toml               Workers config + non-secret vars (model id)
 src/input.css               Tailwind v4 source
 ```
 
@@ -22,15 +23,17 @@ cp .dev.vars.example .dev.vars   # put your OpenRouter key here; file is gitigno
 npm run dev                      # http://localhost:8788
 ```
 
-## Deploy
+## Deploy (Cloudflare Workers Builds, connected to GitHub)
+
+Every push to `main` deploys with `npx wrangler deploy`. The Worker name in the dashboard must match `name` in `wrangler.toml`.
+
+One-time: add the key as a **Secret** in Dashboard > Workers & Pages > my-digital-twin > Settings > Variables and Secrets, or:
 
 ```bash
-npx wrangler pages project create my-digital-twin
-npx wrangler pages secret put OPENROUTER_API_KEY
-npm run deploy
+npx wrangler secret put OPENROUTER_API_KEY
 ```
 
-Or connect the GitHub repo in the Cloudflare dashboard: build command empty, output directory `public`, and add `OPENROUTER_API_KEY` as an encrypted variable.
+Manual deploy from your machine: `npm run deploy`.
 
 ## Update publications
 
