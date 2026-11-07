@@ -59,8 +59,8 @@
   #chat-empty > p:first-child { font-size: 15px; line-height: 1.85; }
   #chat-empty > p:nth-child(2) { margin-top: 1.8rem; }
   #chat-empty .chip { width: 100%; background: transparent; display: flex; justify-content: space-between; align-items: center; }
-  #chat-empty .chip::after { content: '↗'; color: #186d66; padding-inline-start: 12px; }
-  [dir="rtl"] #chat-empty .chip::after { content: '↖'; }
+  #chat-empty .chip::after { content: ''; flex: 0 0 6px; width: 6px; height: 6px; margin-inline-start: 12px; border-top: 1px solid #186d66; border-right: 1px solid #186d66; transform: rotate(45deg); }
+  [dir="rtl"] #chat-empty .chip::after { transform: rotate(-135deg); }
   #chat-form { padding: 1rem; background: #fffefa; }
   .chat-input { min-width: 0; background: #f8f9f4; font-size: 16px; line-height: 1.5; }
   .chat-input:focus-visible { outline-offset: 2px; }
