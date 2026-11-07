@@ -8,6 +8,9 @@
 name = "my-digital-twin"
 main = "src/worker.js"
 compatibility_date = "2026-11-01"
+# Preserve dashboard-managed runtime variables across GitHub deployments.
+# API credentials should still be stored as Secrets, never plaintext vars.
+keep_vars = true
 
 [assets]
 directory = "./public"
