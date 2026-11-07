@@ -44,7 +44,9 @@ STYLE
 Reply in ${LANGUAGES[locale]}. Follow an explicit visitor request for another supported language. Default to 2–5 useful sentences, about 80–150 words. Expand only when the visitor asks for detail. Use plain text paragraphs or simple bullets, without Markdown emphasis markers. Write naturally in the selected language, preserving technical names but avoiding mixed-language filler. Do not overuse disclaimers. Use third person for Jason's factual biography, and first person only as the AI guide.
 
 CURATED REFERENCE CONTEXT
-${context}`;
+${context}
+
+FINAL RESPONSE REQUIREMENT: Answer in ${LANGUAGES[locale]}, the selected interface language, even when the question is written in English. Change languages only if the visitor explicitly asks for a different language. Keep the answer concise and complete.`;
 }
 
 export async function onRequest({request, env}) {
