@@ -1,0 +1,94 @@
+@import "tailwindcss" source("../public");
+
+@theme {
+  --color-ink: #0b0e11;
+  --color-panel: #11161b;
+  --color-line: #1e252d;
+  --color-fg: #e4ebf1;
+  --color-mute: #8796a5;
+  --color-neon: #5eecbf;
+  --color-warn: #f2a65e;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  :focus-visible { outline: 2px solid var(--color-neon); outline-offset: 2px; }
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; opacity: .6; }
+}
+
+@layer components {
+  /* faint blueprint grid + a single soft accent wash, no hard glows */
+  .grid-bg {
+    background-image:
+      radial-gradient(60rem 30rem at 85% -10%, color-mix(in oklab, var(--color-neon) 9%, transparent), transparent 70%),
+      linear-gradient(to right, color-mix(in oklab, var(--color-line) 55%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--color-line) 55%, transparent) 1px, transparent 1px);
+    background-size: auto, 56px 56px, 56px 56px;
+    mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+  }
+
+  .nav-link { @apply transition-colors hover:text-neon; }
+  .section-kicker { @apply font-mono text-[11px] uppercase tracking-[0.25em] text-neon; }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-md bg-neon px-5 py-2.5 text-sm font-medium text-ink
+      transition-[transform,background-color] duration-150 hover:bg-neon/90 active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-md border border-line px-5 py-2.5 text-sm font-medium text-fg
+      transition-[transform,border-color,color] duration-150 hover:border-neon/60 hover:text-neon active:scale-[0.98];
+  }
+
+  .chip {
+    @apply rounded-full border border-line px-3 py-1.5 text-xs text-mute transition-[transform,border-color,color]
+      hover:border-neon/50 hover:text-fg active:scale-[0.98];
+  }
+  .chip[aria-pressed="true"] { @apply border-neon/70 text-neon; }
+
+  .chat-shell {
+    @apply overflow-hidden rounded-xl border border-line bg-panel/80 backdrop-blur;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / .04), 0 0 0 1px color-mix(in oklab, var(--color-neon) 8%, transparent),
+      0 30px 80px -40px color-mix(in oklab, var(--color-neon) 25%, transparent);
+  }
+  .chat-log { scrollbar-width: thin; scrollbar-color: var(--color-line) transparent; }
+  .chat-input:focus-visible { outline: 1px solid color-mix(in oklab, var(--color-neon) 70%, transparent); outline-offset: 0; }
+
+  .bubble { @apply max-w-[85%] rounded-lg px-3.5 py-2.5 text-sm leading-relaxed; animation: rise .25s cubic-bezier(.16,1,.3,1); }
+  .bubble-user { @apply bg-neon/12 text-fg border border-neon/25; }
+  .bubble-twin { @apply bg-ink/70 text-fg border border-line; }
+  .bubble-tag { @apply mb-1 block font-mono text-[10px] uppercase tracking-widest text-neon/80; }
+
+  .typing-dot { @apply size-1.5 rounded-full bg-neon/80; animation: blink 1.2s infinite ease-in-out; }
+  .typing-dot:nth-child(2) { animation-delay: .15s; }
+  .typing-dot:nth-child(3) { animation-delay: .3s; }
+
+  .status-dot { @apply relative inline-block size-1.5 rounded-full bg-neon; }
+  .status-dot::after { content: ""; @apply absolute inset-0 rounded-full bg-neon; animation: ping 2.4s cubic-bezier(0,0,.2,1) infinite; }
+
+  .caret::after { content: "_"; @apply ml-1 text-neon; animation: caret 1.1s steps(1) infinite; }
+
+  .timeline-row { @apply grid gap-1 py-5 sm:grid-cols-[7rem_1fr] sm:gap-6; }
+  .timeline-date { @apply pt-0.5 font-mono text-xs text-mute; }
+  .timeline-org { @apply mt-0.5 text-sm text-neon/80; }
+  .timeline-body { @apply mt-2 max-w-[65ch] text-sm leading-relaxed text-mute; }
+
+  .status { @apply inline-block rounded-sm border px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider; }
+  .status-published { @apply border-neon/40 text-neon; }
+  .status-accepted { @apply border-fg/30 text-fg; }
+  .status-in_review, .status-awaiting_review { @apply border-line text-mute; }
+
+  .text-link { @apply font-mono text-xs uppercase tracking-widest text-neon underline-offset-4 hover:underline; }
+
+  .skeleton { @apply rounded bg-line; animation: shimmer 1.4s ease-in-out infinite; }
+}
+
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+@keyframes caret { 50% { opacity: 0; } }
+@keyframes shimmer { 50% { opacity: .45; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

@@ -1,0 +1,27 @@
+# --- Secrets: never commit ---
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.env
+.env.*
+*.pem
+*.key
+
+# --- Private source documents (resume stays local; only curated facts ship) ---
+*.pdf
+*.docx
+private/
+resume/
+
+# --- Tooling / build ---
+node_modules/
+.wrangler/
+dist/
+*.log
+.DS_Store
+
+# --- Local agent state ---
+.omc/
+.claude-flow/
+.claude/settings.local.json
+graphify-out/

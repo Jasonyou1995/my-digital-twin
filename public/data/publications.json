@@ -1,0 +1,124 @@
+{
+  "updated": "2026-11-07",
+  "statusLabels": {
+    "published": "Published",
+    "accepted": "Accepted",
+    "in_review": "In review",
+    "awaiting_review": "Awaiting review"
+  },
+  "publications": [
+    {
+      "id": 1,
+      "status": "published",
+      "authors": "S. You, K. Radivojevic, J. Nabrzyski, P. Brenner",
+      "title": "Trust in the Context of Blockchain Applications",
+      "venue": "2022 Fourth International Conference on Blockchain Computing and Applications (BCCA)",
+      "location": "San Antonio, TX, USA",
+      "year": 2022,
+      "pages": "111-118",
+      "doi": "10.1109/BCCA55292.2022.9922068"
+    },
+    {
+      "id": 2,
+      "status": "published",
+      "authors": "S. You, A. Joshi, A. Kuehlkamp, J. Nabrzyski",
+      "title": "Mining User Behavior in Decentralized Applications for Blockchain Trust and Security Analytics",
+      "venue": "2023 Fifth International Conference on Blockchain Computing and Applications (BCCA)",
+      "location": "Kuwait",
+      "year": 2023,
+      "pages": "60-67",
+      "doi": "10.1109/BCCA58897.2023.10338860"
+    },
+    {
+      "id": 3,
+      "status": "published",
+      "authors": "S. You, K. Radivojevic, J. Nabrzyski, P. Brenner",
+      "title": "Persona-Preserving Reputation Protocol (P2RP) for Enhanced Security, Privacy, and Trust in Blockchain Oracles",
+      "venue": "Cluster Computing, vol. 27, no. 4",
+      "year": 2024,
+      "pages": "3945-3956",
+      "doi": "10.1007/s10586-023-04222-4"
+    },
+    {
+      "id": 4,
+      "status": "published",
+      "authors": "S. You, A. Kuehlkamp, J. Nabrzyski",
+      "title": "Hybrid Stabilization Protocol for Cross-Chain Digital Assets Using Adaptor Signatures and AI-Driven Arbitrage",
+      "venue": "Financial Cryptography and Data Security: FC 2025 International Workshops, LNCS (Springer)",
+      "year": 2025,
+      "pages": "138-161",
+      "doi": "10.1007/978-3-032-00495-6_8",
+      "arxiv": "2506.05708"
+    },
+    {
+      "id": 5,
+      "status": "published",
+      "authors": "S. You, A. Joshi, A. Kuehlkamp, J. Nabrzyski",
+      "title": "MVF-Composer: Trust-Weighted Controller for Stress-Resilient Stablecoin Reserves",
+      "venue": "2026 IEEE International Conference on Blockchain and Cryptocurrency (ICBC)",
+      "location": "Brisbane, Australia",
+      "year": 2026,
+      "pages": "1-9",
+      "doi": "10.1109/ICBC67748.2026.11575452",
+      "talk": "https://www.youtube.com/watch?v=s_Qcxb-Yr60"
+    },
+    {
+      "id": 6,
+      "status": "accepted",
+      "authors": "S. You, A. Joshi, A. Kuehlkamp, J. Nabrzyski",
+      "title": "ASAS-BridgeAMM: Pricing Latency Risk into a Three-State Bridge AMM",
+      "venue": "Mathematical Research for Blockchain Economy (MARBLE 2027), Springer",
+      "year": 2027,
+      "arxiv": "2601.12434",
+      "note": "arXiv preprint is titled 'ASAS-BridgeAMM: Trust-Minimized Cross-Chain Bridge AMM with Failure Containment'."
+    },
+    {
+      "id": 7,
+      "status": "published",
+      "authors": "S. You, A. Joshi, A. Kuehlkamp, J. Nabrzyski",
+      "title": "Breaking the Peg, or Not: The Limited Power of Oracle Manipulation Against Early Stablecoin Depeg Prediction",
+      "venue": "Blockchains (MDPI), vol. 4, no. 4, art. 21",
+      "year": 2026,
+      "doi": "10.3390/blockchains4040021"
+    },
+    {
+      "id": 8,
+      "status": "awaiting_review",
+      "authors": "S. You, A. Kuehlkamp, A. Joshi, J. Nabrzyski",
+      "title": "Three Facts at the Signing Prompt: What Compiled Financial Regulation Can Decide for AI-Agent Transactions",
+      "venue": "Submitted to Financial Cryptography (FC)",
+      "year": 2027
+    },
+    {
+      "id": 9,
+      "status": "awaiting_review",
+      "authors": "S. You, A. Joshi, A. Kuehlkamp, J. Nabrzyski",
+      "title": "DEFIHARM: Measuring Configuration-Conditional Harm of LLM Agents on Forked DeFi State",
+      "venue": "Submitted to Financial Cryptography (FC)",
+      "year": 2027
+    },
+    {
+      "id": 10,
+      "status": "in_review",
+      "authors": "S. You, A. Joshi, A. Kuehlkamp, J. Nabrzyski",
+      "title": "Does the Judge Backend Matter? A Controlled Comparison of Decision-Native and Chat-Completion Verdict Mechanisms in a Formally-Verified Agent-Consensus Primitive for DeFi",
+      "venue": "Submitted to MDPI AI Agents and Automation",
+      "year": 2027
+    }
+  ],
+  "talks": [
+    {
+      "title": "MVF-Composer: Trust-Weighted Controller for Stress-Resilient Stablecoin Reserves",
+      "event": "IEEE ICBC 2026",
+      "location": "Brisbane, Australia",
+      "year": 2026,
+      "url": "https://www.youtube.com/watch?v=s_Qcxb-Yr60",
+      "paperId": 5
+    },
+    {
+      "title": "Caliper-GUI for Hyperledger Caliper",
+      "event": "Hyperledger Global Forum 2020",
+      "year": 2020
+    }
+  ]
+}

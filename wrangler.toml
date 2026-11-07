@@ -1,0 +1,14 @@
+# Cloudflare Pages project config.
+# Secrets are NOT stored here. Set the key once with:
+#   npx wrangler pages secret put OPENROUTER_API_KEY
+# For local dev, copy .dev.vars.example to .dev.vars (gitignored).
+
+name = "my-digital-twin"
+pages_build_output_dir = "./public"
+compatibility_date = "2026-11-01"
+
+[vars]
+# Any OpenRouter model id. Haiku is fast and cheap for a profile Q&A bot.
+OPENROUTER_MODEL = "anthropic/claude-haiku-5.5"
+# Public site URL, sent to OpenRouter as HTTP-Referer for attribution (optional).
+SITE_URL = ""
